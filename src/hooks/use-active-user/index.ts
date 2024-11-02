@@ -18,6 +18,7 @@ export const useActiveUser = (params?: {
   const { signer } = useSigner(params?.customNdk ? { customNdk: params.customNdk } : undefined);
 
   useEffect(() => {
+    console.log('signer', signer);
     if (signer) {
       signer.user().then((user) => {
         if (!user) return;

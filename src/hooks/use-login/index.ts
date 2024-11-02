@@ -162,6 +162,7 @@ export const useLogin = (localStore: LocalStore, params?: Params) => {
 
             setLocalLoginMethod(LoginMethod.SecretKey);
 
+            console.log('seeeetttting', signer, secretKey);
             setSigner(signer);
 
             options?.onSuccess?.(signer);
