@@ -14,7 +14,13 @@ type Params = {
  * @param params - Optional parameters for custom NDK instance and its setter function.
  */
 export const useAutoLogin = (params?: Params) => {
-  const { loginFromLocalStorage } = useLogin(params);
+  const { loginFromLocalStorage } = useLogin(
+    {
+      getValue: (key) => undefined,
+      setValue: (key) => ({ setValue: async (nextValue?: string) => {} }),
+    },
+    params
+  );
 
   useEffect(() => {
     loginFromLocalStorage();
