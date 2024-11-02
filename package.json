@@ -1,5 +1,5 @@
 {
-  "name": "nostr-hooks",
+  "name": "nostr-hooks-react-native",
   "version": "2.9.12",
   "description": "React hooks for developing Nostr clients",
   "main": "dist/index.js",
