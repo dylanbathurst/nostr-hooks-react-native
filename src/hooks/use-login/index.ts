@@ -1,5 +1,5 @@
 import NDK, { NDKNip07Signer, NDKNip46Signer, NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import { useNdk } from '../use-ndk';
 import { useSigner } from '../use-signer';
@@ -15,13 +15,7 @@ type Params = {
   setCustomNdk: (customNdk: NDK) => void;
 };
 
-interface LocalStore {
-  getValue: <T>(key: string) => T | undefined;
-  setValue: (key: string) => {
-    setValue: (nextValue?: string) => Promise<void>;
-  };
-}
-
+type LocalStorage = <T>(key: string, value?: T) => [T, (value: T) => void];
 /**
  * Custom hook for handling login functionality.
  * This hook provides methods for logging in with different login methods,
@@ -35,27 +29,19 @@ interface LocalStore {
  * - `loginWithSecretKey`: A function for logging in with the secret key method.
  * - `reLoginFromLocalStorage`: A function for re-logging in from previously stored login method in local storage.
  */
-export const useLogin = (localStore: LocalStore, params?: Params) => {
-  const { getValue, setValue } = localStore;
-  const localLoginMethod = getValue<LoginMethod | undefined>('login-method');
-  const localNip46Address = getValue<string | undefined>('nip46-address');
-  const localSecretKey = getValue<string | undefined>('secret-key');
-  const { setValue: setLocalLoginMethod } = setValue('login-method');
-  const { setValue: setLocalNip46Address } = setValue('nip46-address');
-  const { setValue: setLocalSecretKey } = setValue('secret-key');
-
-  // const [localLoginMethod, setLocalLoginMethod] = useLocalStorage<LoginMethod | undefined>(
-  //   'login-method',
-  //   undefined
-  // );
-  // const [localNip46Address, setLocalNip46Address] = useLocalStorage<string | undefined>(
-  //   'nip46-address',
-  //   undefined
-  // );
-  // const [localSecretKey, setLocalSecretKey] = useLocalStorage<string | undefined>(
-  //   'secret-key',
-  //   undefined
-  // );
+export const useLogin = (useLocalStorage: LocalStorage, params?: Params) => {
+  const [localLoginMethod, setLocalLoginMethod] = useLocalStorage<LoginMethod | undefined>(
+    'login-method',
+    undefined
+  );
+  const [localNip46Address, setLocalNip46Address] = useLocalStorage<string | undefined>(
+    'nip46-address',
+    undefined
+  );
+  const [localSecretKey, setLocalSecretKey] = useLocalStorage<string | undefined>(
+    'secret-key',
+    undefined
+  );
 
   // Get reactive NDK instance from the global store
   const { ndk: globalNdk } = useNdk();
