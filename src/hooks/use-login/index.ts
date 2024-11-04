@@ -15,7 +15,7 @@ type Params = {
   setCustomNdk: (customNdk: NDK) => void;
 };
 
-type LocalStorage = <T>(key: string, value?: T) => [T, (value: T) => void];
+export type LocalStorage = <T>(key: string, value?: T) => [T, (value: T) => void];
 /**
  * Custom hook for handling login functionality.
  * This hook provides methods for logging in with different login methods,
