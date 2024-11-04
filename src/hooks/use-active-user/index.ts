@@ -25,13 +25,16 @@ export const useActiveUser = (params?: {
 
         if (params?.fetchProfile) {
           user.fetchProfile().finally(() => {
+            console.log('fetching profile and setting active user', user);
             setActiveUser(user);
           });
         } else {
+          console.log('just setting active user', user);
           setActiveUser(user);
         }
       });
     } else {
+      console.log('no signer acive user undefined');
       setActiveUser(undefined);
     }
   }, [signer, params?.fetchProfile]);
