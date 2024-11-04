@@ -16,16 +16,18 @@ export const useActiveUser = (params?: {
   const [activeUser, setActiveUser] = useState<NDKUser | undefined>(undefined);
 
   const { signer } = useSigner(params?.customNdk ? { customNdk: params.customNdk } : undefined);
+  console.log('signer from hook', signer?.user);
 
   useEffect(() => {
-    console.log('signer', signer);
+    console.log('use active useeffect', signer?.user);
     if (signer) {
       signer.user().then((user) => {
+        console.log('user from signer', user);
         if (!user) return;
 
         if (params?.fetchProfile) {
+          console.log('fetching profile setting active user');
           user.fetchProfile().finally(() => {
-            console.log('fetching profile and setting active user', user);
             setActiveUser(user);
           });
         } else {

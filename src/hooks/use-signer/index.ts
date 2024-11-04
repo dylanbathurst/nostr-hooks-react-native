@@ -32,6 +32,7 @@ export const useSigner = (params?: Params) => {
       if (!ndk || !setNdk) return;
 
       ndk.signer = signer;
+      console.log('setting signer', ndk.signer?.user);
       setNdk(ndk);
     },
     [ndk, setNdk]

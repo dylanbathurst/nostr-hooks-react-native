@@ -162,7 +162,6 @@ export const useLogin = (localStore: LocalStore, params?: Params) => {
 
             setLocalLoginMethod(LoginMethod.SecretKey);
 
-            console.log('seeeetttting', signer, secretKey);
             setSigner(signer);
 
             options?.onSuccess?.(signer);
@@ -221,6 +220,7 @@ export const useLogin = (localStore: LocalStore, params?: Params) => {
           });
           break;
         case LoginMethod.SecretKey:
+          console.log('login from local storage');
           loginWithSecretKey({
             onSuccess: (signer) => {
               options?.onSuccess?.(signer);
