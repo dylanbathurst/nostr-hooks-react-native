@@ -206,7 +206,6 @@ export const useLogin = (useLocalStorage: LocalStorage, params?: Params) => {
           });
           break;
         case LoginMethod.SecretKey:
-          console.log('login from local storage');
           loginWithSecretKey({
             onSuccess: (signer) => {
               options?.onSuccess?.(signer);
